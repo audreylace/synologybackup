@@ -33,12 +33,12 @@ if (($(expr $NOW - $LASTROTATE) > 604800)); then
  echo 1 > "./last-rotate"
  echo "Checking for logs to archive"
 
- if find ./logs -maxdepth 1 -mtime +30 -type f -exec false {} +
+ if find ./logs -maxdepth 1 -mtime +7 -type f -exec false {} +
  then
   echo "No logs to archive"
  else
   echo "Found logs to archive"
-  find ./logs -maxdepth 1 -mtime +30 -type f -print0 | tar -czvf ./logs/archive/oldlogs_$TODAY.tar.gz --remove-files --null -T /dev/stdin
+  find ./logs -maxdepth 1 -mtime +7 -type f -print0 | tar -czvf ./logs/archive/oldlogs_$TODAY.tar.gz --remove-files --null -T /dev/stdin
  fi
 else
  echo "Too early for log rotation"
